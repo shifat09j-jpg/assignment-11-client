@@ -132,16 +132,16 @@
 // export default FoodDetails;
 
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router"; // <-- ঠিকঠাক import
+import { useParams } from "react-router"; 
 import PaymentButton from "../Dashboard/Customer/PaymentButton";
 
 
 const FoodDetails = () => {
-  const { id } = useParams(); // <-- id পাইছি route থেকে
+  const { id } = useParams(); 
   const [meal, setMeal] = useState(null);
 
   useEffect(() => {
-    if (!id) return; // safety check
+    if (!id) return; 
     fetch(`http://localhost:3000/meals/${id}`)
       .then(res => res.json())
       .then(data => setMeal(data));
@@ -150,7 +150,7 @@ const FoodDetails = () => {
   if (!meal) return <p>Loading meal details...</p>;
 
   return (
-    <div className="p-4">
+    <div className="p-4  ">
       <h2>{meal.foodName}</h2>
       <p>Chef: {meal.chefName}</p>
       <p>Price: ৳{meal.price}</p>

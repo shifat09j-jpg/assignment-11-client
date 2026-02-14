@@ -8,8 +8,7 @@ const PaymentSuccess = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Normally transactionId comes from Stripe webhook
-    // For test mode, let's fake a transactionId
+   
     const transactionId = "TEST_TXN_" + Date.now();
 
     if (user?.email) {
@@ -18,8 +17,8 @@ const PaymentSuccess = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           email: user.email,
-          foodName: "Sample Food",  // ideally order.foodName
-          price: 100,               // ideally order.price
+          foodName: "Sample Food", 
+          price: 100,              
           transactionId,
         }),
       })

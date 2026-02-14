@@ -9,7 +9,7 @@ const Home = () => {
   fetch('http://localhost:3000/meals')
     .then(res => res.json())
     .then(data => {
-      console.log("Fetched meals:", data); // <-- এখানে দেখবে কি আসছে
+      console.log("Fetched meals:", data); 
       setMeals(data);
     });
 }, [])

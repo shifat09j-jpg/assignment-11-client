@@ -71,7 +71,6 @@ const Payment = () => {
     } else if (paymentIntent.status === "succeeded") {
       toast.success("Payment Successful! 🎉");
 
-      // Update order in backend with paid=true and transactionId
       fetch(`http://localhost:3000/orders/${id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },

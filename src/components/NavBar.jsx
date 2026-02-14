@@ -238,7 +238,7 @@ const NavBar = () => {
           )}
           {user?.role === "customer" && (
             <li>
-              <NavLink to="/dashboard/customer/my-orders" className="text-primary font-bold text-xl">My Orders</NavLink>
+              <NavLink to="my-orders" className="text-primary font-bold text-xl">My Orders</NavLink>
             </li>
           )}
           {user?.role === "customer" && (

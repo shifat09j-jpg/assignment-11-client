@@ -7,7 +7,7 @@ const Footer = () => {
 
         {/* Brand */}
         <div>
-          <h2 className="text-2xl font-bold text-white">FoodReview</h2>
+          <h2 className="text-2xl font-bold text-white">Foodsss</h2>
           <p className="mt-3 text-sm text-gray-400">
             Discover top-rated foods and honest reviews from real food lovers.
           </p>
