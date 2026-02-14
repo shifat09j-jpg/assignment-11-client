@@ -214,7 +214,7 @@ const NavBar = () => {
 
         {/* Logo */}
         <Link to="/" className="flex items-center gap-1 text-3xl font-bold">
-          Local<span className="text-primary">Chief</span>
+          Local<span className="text-primary">Chef</span>
         </Link>
       </div>
 
