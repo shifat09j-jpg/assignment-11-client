@@ -45,4 +45,4 @@ const MyFoods = () => {
   );
 };
 
-export default MyFoods;
+export default MyFoods

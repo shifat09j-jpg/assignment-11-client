@@ -219,4 +219,3 @@ const AddFood = () => {
 };
 
 export default AddFood;
-

@@ -11,7 +11,7 @@
 //     try {
 
 //       const res = await fetch(
-//         "http://localhost:3000/create-checkout-session",
+//         "https://assignment-11-server-lovat-nu.vercel.app/create-checkout-session",
 //         {
 //           method: "POST",
 //           headers: {
@@ -47,6 +47,30 @@
 
 //     </div>
 //   );
+// };
+
+// export default CheckoutForm;
+
+
+// import React from "react";
+
+// const CheckoutForm = ({ meal }) => {
+//   const handlePay = async () => {
+//     try {
+//       const res = await fetch("https://assignment-11-server-lovat-nu.vercel.app/create-checkout-session", {
+//         method: "POST",
+//         headers: { "Content-Type": "application/json" },
+//         body: JSON.stringify({ price: meal.price, foodName: meal.foodName, orderId: meal._id }),
+//       });
+
+//       const data = await res.json();
+//       if (data.url) window.location.href = data.url;
+//     } catch (err) {
+//       console.log("Stripe Error:", err);
+//     }
+//   };
+
+//   return <button onClick={handlePay}>Pay ${meal.price}</button>;
 // };
 
 // export default CheckoutForm;
@@ -99,4 +123,3 @@ const CheckoutForm = ({ orderId }) => {
 };
 
 export default CheckoutForm;
-
