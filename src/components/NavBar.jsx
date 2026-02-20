@@ -273,7 +273,7 @@ const NavBar = () => {
                 <li className="text-xs font-medium">{user.email}</li>
               </div>
               <li>
-                <Link to="/dashboard" className="font-bold text-primary">Dashboard</Link>
+                <Link to="/dashboard" className="font-bold text-xl text-primary py-3">Dashboard</Link>
               </li>
               <li>
                 <button onClick={signOutUser} className="btn btn-xs bg-primary text-white">

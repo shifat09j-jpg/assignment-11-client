@@ -11,7 +11,7 @@
 //     try {
 
 //       const res = await fetch(
-//         "https://assignment-11-server-lovat-nu.vercel.app/create-checkout-session",
+//         "https://assignment-11-server2.vercel.app/create-checkout-session",
 //         {
 //           method: "POST",
 //           headers: {
@@ -57,7 +57,7 @@
 // const CheckoutForm = ({ meal }) => {
 //   const handlePay = async () => {
 //     try {
-//       const res = await fetch("https://assignment-11-server-lovat-nu.vercel.app/create-checkout-session", {
+//       const res = await fetch("https://assignment-11-server2.vercel.app/create-checkout-session", {
 //         method: "POST",
 //         headers: { "Content-Type": "application/json" },
 //         body: JSON.stringify({ price: meal.price, foodName: meal.foodName, orderId: meal._id }),
@@ -95,7 +95,7 @@ const CheckoutForm = ({ orderId }) => {
       orderId,
     };
 
-    const res = await fetch("http://localhost:3000/create-checkout-session", {
+    const res = await fetch("https://assignment-11-server2.vercel.app/create-checkout-session", {
       method: "POST",
       headers: {
         "content-type": "application/json",

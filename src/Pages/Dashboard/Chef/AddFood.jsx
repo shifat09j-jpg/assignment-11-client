@@ -167,7 +167,7 @@ const AddFood = () => {
     };
 
 
-    fetch("http://localhost:3000/meals", {
+    fetch("https://assignment-11-server2.vercel.app/meals", {
       method: "POST",
       headers: {
         "content-type": "application/json"

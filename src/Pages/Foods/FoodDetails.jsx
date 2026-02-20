@@ -8,7 +8,7 @@
 //   const [loading, setLoading] = useState(true);
 
 //   useEffect(() => {
-//     fetch(`https://assignment-11-server-lovat-nu.vercel.app/meals/${id}`)
+//     fetch(`https://assignment-11-server2.vercel.app/meals/${id}`)
 //       .then(res => res.json())
 //       .then(data => {
 //         console.log(data); // check data structure
@@ -70,7 +70,7 @@
 //   const [loading, setLoading] = useState(true);
 
 //   useEffect(() => {
-//     fetch(`https://assignment-11-server-lovat-nu.vercel.app/meals/${id}`)
+//     fetch(`https://assignment-11-server2.vercel.app/meals/${id}`)
 //       .then((res) => res.json())
 //       .then((data) => {
 //         setMeal(data);
@@ -95,7 +95,7 @@
 //       status: "pending",
 //     };
 
-//     fetch("https://assignment-11-server-lovat-nu.vercel.app/orders", {
+//     fetch("https://assignment-11-server2.vercel.app/orders", {
 //       method: "POST",
 //       headers: { "Content-Type": "application/json" },
 //       body: JSON.stringify(orderData),
@@ -142,7 +142,7 @@
 
 //   useEffect(() => {
 //     if (!id) return; 
-//     fetch(`https://assignment-11-server-lovat-nu.vercel.app/meals/${id}`)
+//     fetch(`https://assignment-11-server2.vercel.app/meals/${id}`)
 //       .then(res => res.json())
 //       .then(data => setMeal(data));
 //   }, [id]);
@@ -182,7 +182,7 @@
 //     const fetchMeal = async () => {
 //       try {
 //         const res = await fetch(
-//           `https://assignment-11-server-lovat-nu.vercel.app/meals/${id}`
+//           `https://assignment-11-server2.vercel.app/meals/${id}`
 //         );
 //         if (!res.ok) throw new Error("Failed to fetch meal");
 //         const data = await res.json();
@@ -238,7 +238,7 @@
 //         setError(null);
 
 //         const res = await fetch(
-//           `https://assignment-11-server-lovat-nu.vercel.app/meals/${id}`
+//           `https://assignment-11-server2.vercel.app/meals/${id}`
 //         );
 
 //         if (!res.ok) {
@@ -277,7 +277,7 @@
 //       };
 
 //       const res = await fetch(
-//         "https://assignment-11-server-lovat-nu.vercel.app/orders",
+//         "https://assignment-11-server2.vercel.app/orders",
 //         {
 //           method: "POST",
 //           headers: { "Content-Type": "application/json" },
@@ -347,7 +347,7 @@
 //         setError(null);
 
 //         const res = await fetch(
-//           `https://assignment-11-server-lovat-nu.vercel.app/meals/${id}`
+//           `https://assignment-11-server2.vercel.app/meals/${id}`
 //         );
 
 //         if (!res.ok) {
@@ -386,7 +386,7 @@
 //       };
 
 //       const res = await fetch(
-//         "https://assignment-11-server-lovat-nu.vercel.app/orders",
+//         "https://assignment-11-server2.vercel.app/orders",
 //         {
 //           method: "POST",
 //           headers: { "Content-Type": "application/json" },
@@ -448,7 +448,7 @@
 //   const [loading, setLoading] = useState(true);
 
 //   useEffect(() => {
-//     fetch(`https://assignment-11-server-lovat-nu.vercel.app/meals/${id}`)
+//     fetch(`https://assignment-11-server2.vercel.app/meals/${id}`)
 //       .then((res) => res.json())
 //       .then((data) => {
 //         setMeal(data);
@@ -463,7 +463,7 @@
 //   // Create order on load
 //   useEffect(() => {
 //     if (meal && !orderId) {
-//       fetch(`https://assignment-11-server-lovat-nu.vercel.app/orders`, {
+//       fetch(`https://assignment-11-server2.vercel.app/orders`, {
 //         method: "POST",
 //         headers: { "Content-Type": "application/json" },
 //         body: JSON.stringify({
@@ -508,7 +508,7 @@ const FoodDetails = () => {
 
   useEffect(() => {
     if (!id) return; 
-    fetch(`http://localhost:3000/meals/${id}`)
+    fetch(`https://assignment-11-server2.vercel.app/meals/${id}`)
       .then(res => res.json())
       .then(data => setMeal(data));
   }, [id]);

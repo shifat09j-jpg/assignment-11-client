@@ -288,8 +288,8 @@ import Login from "../pages/Auth/Login";
 import Register from "../pages/Auth/Register";
 
 import Payment from "../pages/Payment/Payment";
-import PaymentSuccess from "../pages/Payment/PaymentSuccess";
 
+import PaymentSuccess from "../Pages/payment/PaymentSuccess";
 import PrivateRoute from "./PrivateRoute";
 import AllFoods from "../Pages/Foods/AllFoods";
 import FoodDetails from "../Pages/Foods/FoodDetails";
@@ -374,10 +374,10 @@ export const router = createBrowserRouter([
         ),
       },
 
-      {
-        path: "/payment-success/:id",
-        element: <PaymentSuccess />,
-      },
+     {
+      path: "/payment-success/:id",
+     element: <PaymentSuccess />,
+     },
 
     ],
   },

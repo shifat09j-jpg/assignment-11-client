@@ -5,7 +5,7 @@ const Order = () => {
   const meal = useLoaderData();
 
   const handlePayment = async () => {
-    const res = await fetch("http://localhost:3000/create-checkout-session", {
+    const res = await fetch("https://assignment-11-server2.vercel.app/create-checkout-session", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

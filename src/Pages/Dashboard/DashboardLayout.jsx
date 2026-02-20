@@ -27,6 +27,7 @@ const DashboardLayout = () => {
           {/* Admin Links */}
           {user.role === "admin" && (
             <>
+              <li><Link className="text-primary font-bold" to="/"> Home</Link></li>
               <li><Link className="text-primary font-bold" to="/dashboard/admin">Admin Home</Link></li>
               <li><Link className="text-primary font-bold" to="/dashboard/admin/manage-users">Manage Users</Link></li>
               <li><Link className="text-primary font-bold" to="/dashboard/admin/manage-foods">Manage Foods</Link></li>
@@ -45,9 +46,10 @@ const DashboardLayout = () => {
           {/* Customer Links */}
           {user.role === "customer" && (
             <>
+              <li><Link className="text-primary font-bold" to="/"> Home</Link></li>
               <li><Link className="text-primary font-bold" to="/dashboard/customer">Customer Home</Link></li>
-              <li><Link className="text-primary font-bold" to="/dashboard/customer/my-orders">My Orders</Link></li>
-              <li><Link className="text-primary font-bold" to="/dashboard/customer/payment-history">Payment History</Link></li>
+              <li><Link className="text-primary font-bold" to="/dashboard/my-orders">My Orders</Link></li>
+              <li><Link className="text-primary font-bold" to="/dashboard/payment-history">Payment History</Link></li>
             </>
           )}
         </ul>

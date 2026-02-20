@@ -12,7 +12,7 @@ const PaymentSuccess = () => {
     const transactionId = "TEST_TXN_" + Date.now();
 
     if (user?.email) {
-      fetch("http://localhost:3000/payments", {
+      fetch("https://assignment-11-server2.vercel.app/payments", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -32,10 +32,68 @@ const PaymentSuccess = () => {
   }, [user, orderId]);
 
   return (
-    <div>
+    <div class="items- center justify-center text-2xl font-bold h-screen">
       {loading ? <p>Saving payment...</p> : <h2>Payment Successful!</h2>}
     </div>
   );
 };
 
 export default PaymentSuccess;
+
+
+// import { useEffect, useState } from "react";
+
+// const PaymentSuccess = ({ cartItems, user, totalAmount }) => {
+//   const [status, setStatus] = useState("Processing your order...");
+//   const backendUrl = import.meta.env.VITE_API_URL; // ✅ use env variable
+
+//   useEffect(() => {
+//     async function saveOrderAndPayment() {
+//       try {
+//         // Save order
+//         const orderRes = await fetch(`${backendUrl}/orders`, {
+//           method: "POST",
+//           headers: { "Content-Type": "application/json" },
+//           body: JSON.stringify({
+//             userEmail: user.email,
+//             items: cartItems,
+//             total: totalAmount,
+//             date: new Date(),
+//           }),
+//         });
+//         const orderData = await orderRes.json();
+
+//         // Save payment
+//         const paymentRes = await fetch(`${backendUrl}/payments`, {
+//           method: "POST",
+//           headers: { "Content-Type": "application/json" },
+//           body: JSON.stringify({
+//             userEmail: user.email,
+//             items: cartItems,
+//             amount: totalAmount,
+//             date: new Date(),
+//           }),
+//         });
+//         const paymentData = await paymentRes.json();
+
+//         setStatus("✅ Payment successful! Your order is confirmed.");
+//         console.log("Order saved:", orderData);
+//         console.log("Payment saved:", paymentData);
+//       } catch (err) {
+//         console.error("Saving order/payment failed:", err);
+//         setStatus("❌ Something went wrong. Please contact support.");
+//       }
+//     }
+
+//     saveOrderAndPayment();
+//   }, []);
+
+//   return (
+//     <div style={{ textAlign: "center", marginTop: "50px" }}>
+//       <h1>{status}</h1>
+//       <p>Thank you for your purchase!</p>
+//     </div>
+//   );
+// };
+
+// export default PaymentSuccess;

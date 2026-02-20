@@ -6,13 +6,14 @@ const PaymentButton = ({ meal }) => {
 
   const handlePayment = () => {
     // এখানে তুমি backend কে call করবে Stripe session তৈরি করার জন্য
-    fetch("http://localhost:3000/create-checkout-session", {
+    fetch("https://assignment-11-server2.vercel.app/create-checkout-session", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         price: meal.price,       // ✅ এখন safe
         foodName: meal.foodName, // ✅ safe
-        orderId: "some-order-id" // পরে real orderId insert করবে
+       orderId: meal._id,
+        // orderId: "some-order-id" // পরে real orderId insert করবে
       }),
     })
       .then(res => res.json())

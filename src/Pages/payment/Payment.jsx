@@ -72,7 +72,7 @@ const Payment = () => {
     } else if (paymentIntent.status === "succeeded") {
       toast.success("Payment Successful! 🎉");
 
-      fetch(`http://localhost:3000/orders/${id}`, {
+      fetch(`https://assignment-11-server2.vercel.app/orders/${id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

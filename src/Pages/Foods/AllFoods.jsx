@@ -5,7 +5,7 @@
 //   const [meals, setMeals] = useState([]);
 
 //   useEffect(() => {
-//     fetch("https://assignment-11-server-lovat-nu.vercel.app/meals")
+//     fetch("https://assignment-11-server2.vercel.app/meals")
 //       .then((res) => res.json())
 //       .then((data) => {
 //         console.log("All meals:", data);
@@ -84,14 +84,35 @@ import FoodCard from "../../components/FoodCard";
 const AllFoods = () => {
   const [meals, setMeals] = useState([]);
 
+  // useEffect(() => {
+  // fetch("https://assignment-11-server2.vercel.app/meals")
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       console.log("All meals:", data);
+  //       setMeals(data);
+  //     });
+  // }, []);
+
   useEffect(() => {
-    fetch("http://localhost:3000/meals")
-      .then((res) => res.json())
-      .then((data) => {
-        console.log("All meals:", data);
-        setMeals(data);
-      });
-  }, []);
+  fetch("https://assignment-11-server2.vercel.app/meals")  // স্পেস ছাড়া
+    .then(async (res) => {
+      console.log("API status:", res.status);
+      if (!res.ok) {
+        const text = await res.text();
+        console.log("Error response:", text.slice(0, 200));  // দেখাবে HTML কি
+        throw new Error(`Server error ${res.status}`);
+      }
+      return res.json();
+    })
+    .then((data) => {
+      console.log("Meals loaded:", data.length, "items");
+      setMeals(data);
+    })
+    .catch((err) => {
+      console.error("Fetch failed:", err);
+      // Optional: setError("খাবার লোড হচ্ছে না, পরে চেষ্টা করুন");
+    });
+}, []);
 
   return (
     <section className="max-w-7xl mx-auto px-6 py-12">
@@ -108,4 +129,33 @@ const AllFoods = () => {
 };
 
 export default AllFoods;
+
+
+// import { useEffect, useState } from "react";
+
+// const AllFoods = () => {
+//   const [meals, setMeals] = useState([]);
+//   const backendUrl = import.meta.env.VITE_API_URL;
+
+//   useEffect(() => {
+//     fetch(`${backendUrl}/meals`)
+//       .then(res => res.json())
+//       .then(data => setMeals(data))
+//       .catch(err => console.error("Failed to fetch meals:", err));
+//   }, []);
+
+//   return (
+//     <div>
+//       {meals.length === 0 ? (
+//         <p>No meals found</p>
+//       ) : (
+//         meals.map(meal => <div key={meal._id}>{meal.name}</div>)
+//       )}
+//     </div>
+//   );
+// };
+
+// export default AllFoods;
+
+
 

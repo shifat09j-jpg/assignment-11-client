@@ -16,7 +16,7 @@
 //     const fetchMeals = async () => {
 //       try {
 //         const res = await fetch(
-//           "https://assignment-11-server-lovat-nu.vercel.app/meals"
+//           "https://assignment-11-server2.vercel.app/meals"
 //         );
 
 //         if (!res.ok) {
@@ -229,7 +229,7 @@ const Home = () => {
   const [meals, setMeals] = useState([])
 
   useEffect(() => {
-  fetch('http://localhost:3000/meals')
+  fetch('https://assignment-11-server2.vercel.app/meals')
     .then(res => res.json())
     .then(data => {
       console.log("Fetched meals:", data); 

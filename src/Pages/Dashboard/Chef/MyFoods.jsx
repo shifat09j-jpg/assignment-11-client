@@ -13,7 +13,7 @@ const MyFoods = () => {
 
     if (!user?.email) return;
 
-    fetch(`http://localhost:3000/meals?chef=${user.email}`)
+    fetch(`https://assignment-11-server2.vercel.app/meals?chef=${user.email}`)
       .then(res => res.json())
       .then(data => setFoods(data));
 
