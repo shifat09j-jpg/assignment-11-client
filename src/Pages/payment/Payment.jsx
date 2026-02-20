@@ -39,7 +39,7 @@ const Payment = () => {
 
   // Fetch order details from backend
   useEffect(() => {
-    fetch(`http://localhost:3000/orders/${id}`)
+    fetch(`https://assignment-11-server2.vercel.app/orders/${id}`)
       .then(res => res.json())
       .then(data => setOrder(data));
   }, [id]);
