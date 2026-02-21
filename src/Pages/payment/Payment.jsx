@@ -1,64 +1,48 @@
 
-// import { useParams } from "react-router";
-// import CheckoutForm from "../../components/CheckoutForm";
-// // import CheckoutForm from "./CheckOutForm";
 
 
-// const Payment = () => {
-//   const { id } = useParams();
-
-//   return (
-//     <div className="max-w-xl mx-auto mt-20">
-//       <h2 className="text-xl font-bold text-center mb-6">
-//         Complete Payment
-//       </h2>
-
-//       <CheckoutForm orderId={id} />
-//     </div>
-//   );
-// };
-
-// export default Payment;
-
-
-
-
-import { useEffect, useState } from "react";
-
+import { useEffect, useState, useContext } from "react";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import toast from "react-hot-toast";
 import { useNavigate, useParams } from "react-router";
+import { AuthContext } from "../../context/AuthContext";
+
 
 const Payment = () => {
-  const { id } = useParams(); // Order ID
+  const { id } = useParams(); 
   const stripe = useStripe();
   const elements = useElements();
   const navigate = useNavigate();
+  const { user } = useContext(AuthContext); 
+
   const [order, setOrder] = useState(null);
   const [clientSecret, setClientSecret] = useState("");
 
-  // Fetch order details from backend
+  
   useEffect(() => {
-    fetch(`https://assignment-11-server2.vercel.app/orders/${id}`)
-      .then(res => res.json())
-      .then(data => setOrder(data));
-  }, [id]);
+    if (!user?.email) return; 
 
-  // Create PaymentIntent
+    fetch(`https://assignment-11-server2.vercel.app/orders/${id}`)
+      .then((res) => res.json())
+      .then((data) => setOrder(data))
+      .catch((err) => console.error(err));
+  }, [id, user]);
+
   useEffect(() => {
     if (!order) return;
-    fetch("http://localhost:3000/create-payment-intent", {
+    fetch("https://assignment-11-server2.vercel.app/create-payment-intent", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ price: order.price }),
-    })
-      .then(res => res.json())
-      .then(data => setClientSecret(data.clientSecret));
-  }, [order]);
+      body: JSON.stringify({ price: order.price, email: user?.email }),
+    }) 
+      .then((res) => res.json())
+      .then((data) => setClientSecret(data.clientSecret))
+      .catch((err) => console.error(err));
+  }, [order, user]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!stripe || !elements) return;
+    if (!stripe || !elements || !clientSecret) return;
 
     const card = elements.getElement(CardElement);
     if (!card) return;
@@ -69,26 +53,33 @@ const Payment = () => {
 
     if (error) {
       toast.error(error.message);
-    } else if (paymentIntent.status === "succeeded") {
+      return;
+    }
+
+    if (paymentIntent.status === "succeeded") {
       toast.success("Payment Successful! 🎉");
 
-      fetch(`https://assignment-11-server2.vercel.app/orders/${id}`, {
+      await fetch(`https://assignment-11-server2.vercel.app/orders/${id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           paid: true,
           transactionId: paymentIntent.id,
         }),
-      })
-        .then(res => res.json())
-        .then(() => navigate("/dashboard/payment-history"));
+      });
+
+      navigate(`/payment-success?session_id=${paymentIntent.id}`);
     }
   };
 
+  if (!user) return <p className="text-center mt-10">Loading user...</p>; // 🔹 wait for user
+
+  if (!order) return <p className="text-center mt-10">Loading order...</p>;
+
   return (
     <div className="max-w-md mx-auto p-4">
-      <h2 className="text-xl font-bold mb-4">Pay for {order?.foodName}</h2>
-      <p>Price: ৳{order?.price}</p>
+      <h2 className="text-xl font-bold mb-4">Pay for {order.foodName}</h2>
+      <p>Price: ৳{order.price}</p>
       <form onSubmit={handleSubmit} className="space-y-4">
         <CardElement className="p-2 border rounded" />
         <button

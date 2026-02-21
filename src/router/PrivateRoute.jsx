@@ -61,16 +61,37 @@
 
 // export default PrivateRoute;
 
-import { useContext } from "react";
+// import { useContext } from "react";
 
+// import { AuthContext } from "../context/AuthContext";
+// import { Navigate } from "react-router";
+
+// const PrivateRoute = ({ children, role }) => {
+//   const { user } = useContext(AuthContext);
+
+//   if (!user) return <Navigate to="/login" />; // login required
+//   if (role && user.role !== role) return <Navigate to="/" />; // role mismatch
+
+//   return children;
+// };
+
+// export default PrivateRoute;
+
+
+import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { Navigate } from "react-router";
 
 const PrivateRoute = ({ children, role }) => {
-  const { user } = useContext(AuthContext);
+  const { user, loading } = useContext(AuthContext);
 
-  if (!user) return <Navigate to="/login" />; // login required
-  if (role && user.role !== role) return <Navigate to="/" />; // role mismatch
+  if (loading) {
+    // User load হওয়া পর্যন্ত spinner বা loading দেখাও
+    return <div className="text-center mt-10 text-lg font-semibold">Loading...</div>;
+  }
+
+  if (!user) return <Navigate to="/login" replace />; // login required
+  if (role && user.role !== role) return <Navigate to="/" replace />; // role mismatch
 
   return children;
 };

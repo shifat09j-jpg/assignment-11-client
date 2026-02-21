@@ -37,6 +37,7 @@ const DashboardLayout = () => {
           {/* Chef Links */}
           {user.role === "chef" && (
             <>
+               <li><Link className="text-primary font-bold" to="/"> Home</Link></li>
               <li><Link className="text-primary font-bold" to="/dashboard/chef">Chef Home</Link></li>
               <li><Link className="text-primary font-bold" to="/dashboard/chef/add-food">Add Food</Link></li>
               <li><Link className="text-primary font-bold" to="/dashboard/chef/my-foods">My Foods</Link></li>
@@ -50,6 +51,7 @@ const DashboardLayout = () => {
               <li><Link className="text-primary font-bold" to="/dashboard/customer">Customer Home</Link></li>
               <li><Link className="text-primary font-bold" to="/dashboard/my-orders">My Orders</Link></li>
               <li><Link className="text-primary font-bold" to="/dashboard/payment-history">Payment History</Link></li>
+               <li><Link className="text-primary font-bold" to="/dashboard/customer/apply-chef">Apply For Chef</Link></li>
             </>
           )}
         </ul>

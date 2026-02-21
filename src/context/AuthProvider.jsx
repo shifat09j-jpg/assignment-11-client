@@ -1,65 +1,4 @@
-// import React, { useEffect, useState } from 'react';
-// import { AuthContext } from './AuthContext';
 
-// import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from 'firebase/auth';
-// import { auth} from  '../firebase/Firebase.config';
-
-//  const googleProvider = new GoogleAuthProvider();
-
-
-
-// const AuthProvider = ({children}) => {
-//      const [user, setUser] = useState(null);
-//      const [loading, setLoading] = useState(true);
-
-//     const createUser = (email, password) => {
-//         setLoading(true);
-//         return createUserWithEmailAndPassword(auth, email, password)
-//     }
-
-//     const signInUser = (email, password) => {
-//         setLoading(true);
-//         return signInWithEmailAndPassword(auth, email, password)
-//     }
-
-//     const signInWithGoogle = () => {
-//         setLoading(true);
-//         return signInWithPopup(auth, googleProvider)
-//     }
-
-//     const signOutUser = () => {
-//         setLoading(true);
-//         return signOut(auth);
-//     }
-
-//     useEffect(() => {
-//         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-//             setUser(currentUser);
-//             setLoading(false)
-//         })
-//         return () => {
-//             unsubscribe()
-//         }
-//     }, [])
-
-
-
-//     const authInfo = {
-//           createUser,
-//           signInUser,
-//           signInWithGoogle,
-//           signOutUser,
-//           user,
-//           loading
-//     }
-//     return (
-//         <AuthContext value ={authInfo}>
-//               {children}
-//         </AuthContext>
-//     );
-// };
-
-// export default AuthProvider;
 
 
 import React, { useEffect, useState } from "react";
@@ -92,6 +31,18 @@ const AuthProvider = ({ children }) => {
     await updateProfile(res.user, {
       displayName: name,
     });
+
+     await fetch("https://assignment-11-server2.vercel.app/users", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      uid: res.user.uid,
+      name: name,
+      email,
+      role: "customer", // default role
+      photoURL: res.user.photoURL || "",
+    }),
+  });
 
     return res;
   };
@@ -170,3 +121,6 @@ const AuthProvider = ({ children }) => {
 };
 
 export default AuthProvider;
+
+
+

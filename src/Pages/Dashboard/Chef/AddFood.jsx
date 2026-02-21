@@ -1,221 +1,281 @@
-// import { useContext } from "react";
-
-
-// import { AuthContext } from "../../context/AuthContext";
-// import { toast } from "react-toastify";
-
-// const AddFood = () => {
-//   const { user } = useContext(AuthContext);
-
-//   const handleAddFood = (e) => {
-//     e.preventDefault();
-
-//     const form = e.target;
-
-//     const newReview = {
-//       food_name: form.food_name.value,
-//       photo: form.photo.value,
-//       restaurant_name: form.restaurant_name.value,
-//       restaurant_location: form.location.value,
-//       rating: Number(form.rating.value),
-//       review_text: form.review_text.value,
-//       reviewer_email: user?.email,
-//     //   date: new Date()
-//     };
-
-   
-
-    
-//     fetch('https://foodfan-server.vercel.app/meals', {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify(newReview)
-//     })
-//     .then(res => res.json())
-//     .then(data=> {
-//       toast.success("Successfully added!")
-//       console.log(data)
-//       form.reset();
-//     })
-//     .catch(err => {
-//       console.log(err)
-//     })
-//   };
-
-//   return (
-//     <div className="max-w-3xl mx-auto px-6 py-12 ">
-//       <h2 className="text-3xl font-bold text-center mb-8">
-//         🍽 Add Food Review
-//       </h2>
-
-//       <form onSubmit={handleAddFood} className="bg-white shadow-lg rounded-xl p-8 space-y-5">
-
-//         {/* Food Name */}
-//         <div>
-//           <label className="font-medium">Food Name</label>
-//           <input
-//             type="text"
-//             name="food_name"
-//             required
-//             className="w-full mt-2 p-3 border rounded-lg"
-//             placeholder="Items Name"
-//           />
-//         </div>
-
-//         {/* Food Image */}
-//         <div>
-//           <label className="font-medium">Food Image URL</label>
-//           <input
-//             type="url"
-//             name="photo"
-//             required
-//             className="w-full mt-2 p-3 border rounded-lg"
-//             placeholder="https://image-link.jpg"
-//           />
-//         </div>
-
-//         {/* Restaurant Name */}
-//         <div>
-//           <label className="font-medium">Restaurant Name</label>
-//           <input
-//             type="text"
-//             name="restaurant_name"
-//             required
-//             className="w-full mt-2 p-3 border rounded-lg"
-//             placeholder="Restaurant Name"
-//           />
-//         </div>
-
-//         {/* Location */}
-//         <div>
-//           <label className="font-medium">Location</label>
-//           <input
-//             type="text"
-//             name="location"
-//             required
-//             className="w-full mt-2 p-3 border rounded-lg"
-//             placeholder="Gulistan, Dhaka"
-//           />
-//         </div>
-
-//         {/* Rating */}
-//         <div>
-//           <label className="font-medium">Star Rating</label>
-//           <select
-//             name="rating"
-//             required
-//             className="w-full mt-2 p-3 border rounded-lg"
-//           >
-//             <option value="">Select Rating</option>
-//             <option value="5">★★★★★ (5)</option>
-//             <option value="4.5">★★★★☆ (4.5)</option>
-//             <option value="4">★★★★ (4)</option>
-//             <option value="3.5">★★★☆ (3.5)</option>
-//             <option value="3">★★★ (3)</option>
-//           </select>
-//         </div>
-
-//         {/* Review Text */}
-//         <div>
-//           <label className="font-medium">Review</label>
-//           <textarea
-//             name="review_text"
-//             rows="4"
-//             required
-//             className="w-full mt-2 p-3 border rounded-lg"
-//             placeholder="Write your honest review..."
-//           ></textarea>
-//         </div>
-
-//         {/* Submit */}
-//         <button
-//           type="submit"
-//           className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700"
-//         >
-//           Add Review
-//         </button>
-//       </form>
-//     </div>
-//   );
-// };
-
-// export default AddFood;
 
 
 
-import { useContext } from "react";
+import React, { useState, useContext } from "react";
+import toast, { Toaster } from "react-hot-toast";
+
+import { useNavigate } from "react-router";
 import { AuthContext } from "../../../context/AuthContext";
-
 
 const AddFood = () => {
 
   const { user } = useContext(AuthContext);
 
-  const handleAdd = e => {
+  const [foodName, setFoodName] = useState("");
+  const [price, setPrice] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
+  const [location, setLocation] = useState("");
+  const [chefName, setChefName] = useState(user?.displayName || "");
+  const [rating, setRating] = useState(0);
+
+  const navigate = useNavigate();
+
+
+  const handleSubmit = async (e) => {
 
     e.preventDefault();
 
-    const form = e.target;
+    if (!foodName || !price || !imageUrl || !location || !chefName) {
 
-    const food = {
-      name: form.name.value,
-      price: form.price.value,
-      image: form.image.value,
-      chef: user.email
-    };
+      toast.error("Please fill all fields");
+
+      return;
+
+    }
 
 
-    fetch("https://assignment-11-server2.vercel.app/meals", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json"
-      },
-      body: JSON.stringify(food)
-    });
+    try {
 
-    alert("Food Added ✅");
-    form.reset();
+      const newFood = {
+
+        foodName,
+        price: parseFloat(price),
+        image: imageUrl,
+         DeliveryArea: location,
+
+        chefName,
+        chefEmail: user?.email,
+        chefId: user?.uid,
+
+        rating,
+
+      };
+
+
+      const res = await fetch("https://assignment-11-server2.vercel.app/meals", {
+
+        method: "POST",
+
+        headers: {
+
+          "Content-Type": "application/json",
+
+        },
+
+        body: JSON.stringify(newFood),
+
+      });
+
+
+      const data = await res.json();
+
+
+      if (data.insertedId) {
+
+        toast.success("🎉 Food added successfully!");
+
+
+        setFoodName("");
+        setPrice("");
+        setImageUrl("");
+        setLocation("");
+        setChefName(user?.displayName || "");
+        setRating(0);
+
+      }
+
+      else {
+
+        toast.error("Failed to add food");
+
+      }
+
+    }
+
+    catch (error) {
+
+      console.error(error);
+
+      toast.error("Server error");
+
+    }
+
+  };
+
+
+  /* Star Rating UI */
+
+  const renderStars = () => {
+
+    const stars = [];
+
+    for (let i = 1; i <= 5; i++) {
+
+      stars.push(
+
+        <span
+
+          key={i}
+
+          onClick={() => setRating(i)}
+
+          className={`cursor-pointer text-2xl ${
+            i <= rating ? "text-yellow-400" : "text-gray-300"
+          }`}
+
+        >
+
+          ★
+
+        </span>
+
+      );
+
+    }
+
+    return stars;
+
   };
 
 
   return (
-    <div>
 
-      <h2 className="text-xl font-bold mb-4">
-        Add Food
+    <div className="max-w-md mx-auto p-6">
+
+      <Toaster position="top-right" />
+
+      <h2 className="text-2xl font-bold mb-4">
+
+        Add New Food
+
       </h2>
 
 
-      <form onSubmit={handleAdd} className="space-y-3">
+      <form onSubmit={handleSubmit} className="space-y-4">
+
 
         <input
-          name="name"
+
+          type="text"
+
           placeholder="Food Name"
-          className="input input-bordered w-full"
+
+          value={foodName}
+
+          onChange={(e) => setFoodName(e.target.value)}
+
+          className="w-full p-2 border rounded"
+
         />
 
+
         <input
-          name="price"
+
+          type="text"
+
+          placeholder="Chef Name"
+
+          value={chefName}
+
+          onChange={(e) => setChefName(e.target.value)}
+
+          className="w-full p-2 border rounded"
+
+        />
+
+
+        <input
+
+          type="number"
+
           placeholder="Price"
-          className="input input-bordered w-full"
+
+          value={price}
+
+          onChange={(e) => setPrice(e.target.value)}
+
+          className="w-full p-2 border rounded"
+
         />
+
 
         <input
-          name="image"
+
+          type="text"
+
           placeholder="Image URL"
-          className="input input-bordered w-full"
+
+          value={imageUrl}
+
+          onChange={(e) => setImageUrl(e.target.value)}
+
+          className="w-full p-2 border rounded"
+
         />
 
-        <button className="btn btn-success">
-          Add
+
+        <input
+
+          type="text"
+
+          placeholder="Location"
+
+          value={location}
+
+          onChange={(e) => setLocation(e.target.value)}
+
+          className="w-full p-2 border rounded"
+
+        />
+
+
+        <div className="flex items-center gap-2">
+
+          <span className="font-semibold">
+
+            Rating:
+
+          </span>
+
+          {renderStars()}
+
+        </div>
+
+
+        <button
+
+          type="submit"
+
+          className="bg-primary text-white w-full py-2 rounded"
+
+        >
+
+          Add Food
+
         </button>
+
+
+        <button
+
+          type="button"
+
+          onClick={() => navigate("/")}
+
+          className="bg-gray-600 text-white w-full py-2 rounded"
+
+        >
+
+          Back to Home
+
+        </button>
+
 
       </form>
 
     </div>
+
   );
+
 };
 
 export default AddFood;
